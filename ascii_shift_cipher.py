@@ -1,24 +1,22 @@
 # Create a Python program that encodes and decodes messages using the shift cipher described
 # in this section. The amount of shift must be configurable.
+import string
 
-message = "HELLO WORLD"
-shift = 1
-top_position = 90
-low_position = 65
-message_shifted = ""
+shift = 2
 
-diff_position = top_position - low_position
-backward_move = diff_position + 1
 
-for i in message:
-    i_ascii = ord(i)
-    if low_position <= i_ascii <= top_position:
-        i_ascii_shifted = i_ascii + shift
-        if i_ascii_shifted > top_position:
-            i_ascii_shifted -= backward_move
-    else:
-        i_ascii_shifted = i_ascii
-    i_shifted = chr(i_ascii_shifted)
-    message_shifted += i_shifted
-    pass
-print(message_shifted)
+def create_encode_dict():
+    encode_dict = {}
+    alphabet_len = len(string.ascii_uppercase)
+    for i in range(0, alphabet_len):
+        letter = string.ascii_uppercase[i]
+        upper_num = (i+shift) % alphabet_len
+        letter_encoded = string.ascii_uppercase[upper_num]
+
+        encode_dict[letter] = letter_encoded
+    return encode_dict
+
+
+if __name__ == "__main__":
+    ed = create_encode_dict()
+    print(ed)
